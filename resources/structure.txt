@@ -1,0 +1,19 @@
+World
+	- tilearray
+	- camera
+	- entities
+	- player
+	- shadows + lighting
+
+	- draw(canvas)
+	- set/get cameraPos
+	- addEntity(entity)
+	- removeEntity(entity)
+
+Entity
+	- position
+	- name
+	- logic code
+
+	- draw(canvas)
+	- logic(frame)
