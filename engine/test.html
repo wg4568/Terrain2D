@@ -2,6 +2,7 @@
 
 <canvas id="game"></canvas>
 
+<script src="perlin.js"></script>
 <script src="helpers.js"></script>
 <script src="terrain.js"></script>
 <script src="engine.js"></script>
@@ -10,22 +11,30 @@
 	var canvas = new Canvas("game", fullscreen=true);
 	var timer = new Timer();
 
-	var grid = new Grid(100, 100, function(posn) {
-		return Helpers.RandomInt(0, 4);
-	});
+	// var grid = new Grid(100, 100, function(posn) {
+	// 	return Helpers.RandomInt(0, 4);
+	// });
+
+	var grid = GenerateIsland(100, 100);
 
 	var world = new World(grid, {
 		0: new Sprite.Image("../sprites/tiles/dirt.png"),
 		1: new Sprite.Image("../sprites/tiles/grass.png"),
 		2: new Sprite.Image("../sprites/tiles/sand.png"),
 		3: new Sprite.Image("../sprites/tiles/water.png")
-	}, 64);
+	}, 16);
 
 	timer.start(function() {
 		canvas.drawFill("red");
 		world.draw(canvas);
 
-		world.cameraPosn.x ++;
-		world.cameraPosn.y ++;
+		// pts.forEach(function(pt) {
+		// 	var transf = Vector.Multiply(5, pt);
+		// 	transf = Vector.Add(canvas.center, transf);
+		// 	canvas.drawRect("blue", transf, 5, 5);
+		// })
+
+		world.cameraPosn.x += 2;
+		world.cameraPosn.y += 2;
 	});
 </script>

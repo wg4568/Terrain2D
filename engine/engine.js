@@ -106,6 +106,7 @@ class World {
 
 			var scale = parent.tileSize / sprite.width;
 
+			// canvas.drawRect(new Color(0, 0, value*255), canvasPosn, parent.tileSize, parent.tileSize);
 			canvas.drawSprite(sprite, canvasPosn, 0, 1, scale);
 		});
 	}

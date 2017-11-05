@@ -417,6 +417,42 @@ class Grid {
 		var index = this.posnToIndex(posn);
 		this.data[index] = value;
 	}
+
+	static IsGrid(obj) {
+		return obj instanceof Grid;
+	}
+
+	static Add(inp1, inp2) {
+		return new Grid(inp1.width, inp1.height, function(pt) {
+			var v = inp1.getPosn(pt);
+			if (Grid.IsGrid(inp2)) return v + inp2.getPosn(pt);
+			else return v + inp2;
+		});
+	}
+
+	static Subtract(inp1, inp2) {
+		return new Grid(inp1.width, inp1.height, function(pt) {
+			var v = inp1.getPosn(pt);
+			if (Grid.IsGrid(inp2)) return v - inp2.getPosn(pt);
+			else return v - inp2;
+		});
+	}
+
+	static Multiply(inp1, inp2) {
+		return new Grid(inp1.width, inp1.height, function(pt) {
+			var v = inp1.getPosn(pt);
+			if (Grid.IsGrid(inp2)) return v * inp2.getPosn(pt);
+			else return v * inp2;
+		});
+	}
+
+	static Divide(inp1, inp2) {
+		return new Grid(inp1.width, inp1.height, function(pt) {
+			var v = inp1.getPosn(pt);
+			if (Grid.IsGrid(inp2)) return v / inp2.getPosn(pt);
+			else return v / inp2;
+		});
+	}
 }
 
 // Sprite classes
