@@ -362,6 +362,7 @@ class Timer {
 class Grid {
 	constructor(width, height, generator=function(posn) { return 0; }) {
 		this.data = [];
+		this.flags = {};
 		this.width = width;
 		this.height = height;
 		this.generator = generator;

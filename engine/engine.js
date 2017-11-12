@@ -109,9 +109,37 @@ class World {
 			// canvas.drawRect(new Color(0, 0, value*255), canvasPosn, parent.tileSize, parent.tileSize);
 			canvas.drawSprite(sprite, canvasPosn, 0, 1, scale);
 		});
+
+		this.entities.forEach(function(entity) {
+			var canvasPosn = parent.worldToCanvas(entity.posn)
+			var scale = parent.tileSize / entity.sprite.width * 2;
+
+			var xmin = parent.cameraPosn.x - (canvas.width / 2) - (2 * parent.tileSize);
+			var xmax = parent.cameraPosn.x + (canvas.width / 2) + (2 * parent.tileSize);
+			var ymin = parent.cameraPosn.y - (canvas.height / 2) - (2 * parent.tileSize);
+			var ymax = parent.cameraPosn.y + (canvas.height / 2) + (2 * parent.tileSize);
+
+			// console.log(xmin, xmax);
+
+			var xgood = (entity.posn.x > xmin && entity.posn.y < xmax);
+			var ygood = (entity.posn.y > ymin && entity.posn.y < ymax);
+
+			if (xgood && ygood) {
+				canvasPosn = Vector.Subtract(canvasPosn,
+					new Vector(0, parent.tileSize)
+				);
+
+				canvasPosn.y -= parent.tileSize;
+
+				canvas.drawSprite(entity.sprite, canvasPosn, 0, 1, scale);
+			}
+		});
 	}
 }
 
 class Entity {
-	constructor() {}
+	constructor(posn, sprite) {
+		this.posn = posn;
+		this.sprite = sprite;
+	}
 }

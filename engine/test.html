@@ -11,21 +11,41 @@
 	var canvas = new Canvas("game", fullscreen=true);
 	var timer = new Timer();
 
+	var TILESIZE = 4;
+
 	// var grid = new Grid(100, 100, function(posn) {
 	// 	return Helpers.RandomInt(0, 4);
 	// });
 
-	var grid = GenerateIsland(100, 100);
+	var environment = GenerateIsland(200, 200);
+	var entities = [];
 
-	var world = new World(grid, {
+	environment.trees.forEach(function(tree) {
+		var actual_pos = Vector.Multiply(tree, TILESIZE);
+		var offset = new Vector(
+			Helpers.RandomInt(0, TILESIZE / 4),
+			Helpers.RandomInt(0, TILESIZE / 4)
+		);
+		entities.push(new Entity(
+			Vector.Subtract(actual_pos, offset),
+			new Sprite.Image("../sprites/entities/tree.png")
+		));
+	});
+
+	var world = new World(environment.terrain, {
 		0: new Sprite.Image("../sprites/tiles/dirt.png"),
 		1: new Sprite.Image("../sprites/tiles/grass.png"),
 		2: new Sprite.Image("../sprites/tiles/sand.png"),
-		3: new Sprite.Image("../sprites/tiles/water.png")
-	}, 16);
+		3: new Sprite.Image("../sprites/tiles/water.png"),
+		4: new Sprite.Image("../sprites/tiles/ocean.png"),
+		5: new Sprite.Image("../sprites/tiles/stone.png"),
+		6: new Sprite.Image("../sprites/tiles/marsh.png")
+	}, TILESIZE, entities);
+
+	world.cameraPosn = canvas.center;
 
 	timer.start(function() {
-		canvas.drawFill("red");
+		canvas.drawFill("black");
 		world.draw(canvas);
 
 		// pts.forEach(function(pt) {
@@ -34,7 +54,7 @@
 		// 	canvas.drawRect("blue", transf, 5, 5);
 		// })
 
-		world.cameraPosn.x += 2;
-		world.cameraPosn.y += 2;
+		// world.cameraPosn.x += 5;
+		// world.cameraPosn.y += 5;
 	});
-</script>
+// </script>
